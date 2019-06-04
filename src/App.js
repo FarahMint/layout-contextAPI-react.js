@@ -1,25 +1,28 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+
+import Content from './components/Content';
+import WindowDimensionsProvider from './components/WindowDimensionsProvider';
+import items from './data.json';
+ 
+
+
+/**
+ * -- the Provider component appear higher in app render tree than any component that wants to read from its Context for data. 
+ * -->(imp so React knows which ctxt value to provide, in case of multiple instances of the same type of Provider rendered in app.)
+ */
+
+/**
+ * -- only one "resize" event listener active on the page
+ * -- will remain active as long as React is rendering App compo
+ * --All components inside app have access to the WindowDimensionsProvider’s context
+ */
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <WindowDimensionsProvider>   
+        <Content items={items} />
+
+  </WindowDimensionsProvider>
   );
 }
 
